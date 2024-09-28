@@ -82,26 +82,28 @@
         // Inicializar o campo "Data de Início" para que se transforme em um calendário embutido
         var fromDatePicker = new Pikaday({
             field: document.getElementById('from_date'),
-            format: 'YYYY-MM-DD HH:mm',
+            format: 'DD/MM/YYYY HH:mm',  // Formato correto DD/MM/YYYY HH:mm
             showTime: true,
             timeFormat: 'HH:mm',
             use24hour: true,
             maxDate: new Date(),  // Limitar ao dia atual
             onSelect: function() {
-                document.getElementById('from_date').value = this.getMoment().format('YYYY-MM-DD HH:mm');
+                var selectedDate = this.getMoment().format('DD/MM/YYYY HH:mm');
+                document.getElementById('from_date').value = selectedDate;  // Preencher o campo com o valor formatado
             }
         });
 
         // Inicializar o campo "Data de Término" para que se transforme em um calendário embutido
         var toDatePicker = new Pikaday({
             field: document.getElementById('to_date'),
-            format: 'YYYY-MM-DD HH:mm',
+            format: 'DD/MM/YYYY HH:mm',  // Formato correto DD/MM/YYYY HH:mm
             showTime: true,
             timeFormat: 'HH:mm',
             use24hour: true,
             maxDate: new Date(),
             onSelect: function() {
-                document.getElementById('to_date').value = this.getMoment().format('YYYY-MM-DD HH:mm');
+                var selectedDate = this.getMoment().format('DD/MM/YYYY HH:mm');
+                document.getElementById('to_date').value = selectedDate;  // Preencher o campo com o valor formatado
             }
         });
 
