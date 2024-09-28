@@ -29,7 +29,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative; /* Para garantir que o calendário esteja dentro da área correta */
         }
 
         h1 {
@@ -51,7 +50,6 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 9999; /* Garantir que o calendário apareça no topo */
         }
 
         .submit-btn {
@@ -85,31 +83,25 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        // Inicializar os campos de data/hora
+        // Inicializar os campos de data/hora com posição correta do calendário
         flatpickr("#from_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            defaultDate: new Date(),
             maxDate: new Date(),  // Limitar a data máxima ao presente
             time_24hr: true,
             onOpen: function(selectedDates, dateStr, instance) {
-                instance.setDate(new Date());  // Garante que abre com a data atual
-            },
-            position: "below", // Garante que o calendário apareça abaixo do campo
-            zIndex: 9999
+                instance.positionElement = document.getElementById('from_date'); // Garante que o calendário aparece logo abaixo
+            }
         });
 
         flatpickr("#to_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            defaultDate: new Date(),
             maxDate: new Date(),
             time_24hr: true,
             onOpen: function(selectedDates, dateStr, instance) {
-                instance.setDate(new Date());  // Garante que abre com a data atual
-            },
-            position: "below", // Garante que o calendário apareça abaixo do campo
-            zIndex: 9999
+                instance.positionElement = document.getElementById('to_date'); // Garante que o calendário aparece logo abaixo
+            }
         });
 
         // Enviar dados ao bot do Telegram
