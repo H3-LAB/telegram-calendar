@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Calendário de Seleção</title>
+    <title>Escolha o Intervalo de Data e Hora</title>
 
-    <!-- Incluindo uma biblioteca de calendário leve -->
+    <!-- Biblioteca de calendário leve -->
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
     <style>
         body, html {
             height: 100%;
@@ -15,42 +16,49 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f0f0f0;
         }
 
-        .calendar-container {
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
         }
 
-        .calendar-container h1 {
+        h1 {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #333;
         }
 
-        .flatpickr {
-            font-size: 16px;
-            margin-bottom: 20px;
+        .date-input {
+            margin-bottom: 15px;
             width: 100%;
         }
 
+        .flatpickr {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
         .submit-btn {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 10px;
             background-color: #007bff;
-            color: #ffffff;
+            color: white;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            width: 100%;
-            text-align: center;
         }
 
         .submit-btn:hover {
@@ -60,35 +68,37 @@
 </head>
 <body>
 
-    <div class="calendar-container">
-        <h1>Escolha a data de início e fim</h1>
-        <input id="from_date" type="text" class="flatpickr" placeholder="Data de Início" readonly>
-        <input id="to_date" type="text" class="flatpickr" placeholder="Data de Fim" readonly>
-        <button class="submit-btn" onclick="sendDateToBot()">Enviar Datas</button>
+    <div class="container">
+        <h1>Escolha o intervalo de data e hora</h1>
+
+        <input id="from_date" type="text" class="flatpickr date-input" placeholder="Data de Início" readonly>
+        <input id="to_date" type="text" class="flatpickr date-input" placeholder="Data de Término" readonly>
+
+        <button class="submit-btn" onclick="sendDateToBot()">Enviar</button>
     </div>
 
     <!-- Biblioteca de calendário -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        // Inicializar o calendário com a biblioteca flatpickr
+        // Inicializar os campos de data/hora
         flatpickr("#from_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            maxDate: new Date(),
             defaultDate: new Date(),
+            maxDate: new Date(),
             time_24hr: true
         });
 
         flatpickr("#to_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            maxDate: new Date(),
             defaultDate: new Date(),
+            maxDate: new Date(),
             time_24hr: true
         });
 
-        // Função para enviar as datas ao bot do Telegram
+        // Enviar dados ao bot do Telegram
         function sendDateToBot() {
             const fromDate = document.getElementById('from_date').value;
             const toDate = document.getElementById('to_date').value;
@@ -103,10 +113,10 @@
                 to_date: toDate
             };
 
-            Telegram.WebApp.sendData(JSON.stringify(data));  // Envia os dados de volta ao bot
+            Telegram.WebApp.sendData(JSON.stringify(data));  // Enviar dados ao bot
         }
 
-        // Inicializa a WebApp do Telegram quando a página carrega
+        // Inicializar WebApp
         Telegram.WebApp.ready();
     </script>
 </body>
