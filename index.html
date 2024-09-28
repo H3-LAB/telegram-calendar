@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+</head>
+<body>
+    <h1>Escolha a data e hora</h1>
+    <input type="text" id="calendar" placeholder="Selecione a data e hora" style="width: 200px; height: 40px;">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+    <script>
+        flatpickr("#calendar", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            maxDate: new Date().fp_incr(30), // Limita a 30 dias a partir de hoje
+        });
+    </script>
+</body>
+</html>
