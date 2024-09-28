@@ -52,6 +52,10 @@
             cursor: pointer;
         }
 
+        .flatpickr-calendar {
+            z-index: 1000; /* Garantir que o calendário fique por cima de outros elementos */
+        }
+
         .submit-btn {
             width: 100%;
             padding: 10px;
@@ -83,16 +87,14 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        // Inicializar os campos de data/hora com ajuste de posição para a esquerda
+        // Inicializar os campos de data/hora com estilo embutido e com ajuste de posição no campo de entrada
         flatpickr("#from_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
             maxDate: new Date(),  // Limitar a data máxima ao presente
             time_24hr: true,
-            position: "auto left", // Forçar o calendário a abrir à esquerda
-            onOpen: function(selectedDates, dateStr, instance) {
-                instance.positionElement = document.getElementById('from_date'); // Garante que o calendário aparece logo abaixo
-            }
+            appendTo: document.getElementById("from_date").parentNode, // Anexa o calendário no contêiner
+            position: "below",  // Garante que o calendário aparece logo abaixo do campo
         });
 
         flatpickr("#to_date", {
@@ -100,10 +102,8 @@
             dateFormat: "Y-m-d H:i",
             maxDate: new Date(),
             time_24hr: true,
-            position: "auto left", // Forçar o calendário a abrir à esquerda
-            onOpen: function(selectedDates, dateStr, instance) {
-                instance.positionElement = document.getElementById('to_date'); // Garante que o calendário aparece logo abaixo
-            }
+            appendTo: document.getElementById("to_date").parentNode,  // Anexa o calendário no contêiner
+            position: "below",  // Garante que o calendário aparece logo abaixo do campo
         });
 
         // Enviar dados ao bot do Telegram
