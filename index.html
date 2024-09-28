@@ -29,6 +29,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative; /* Para garantir que o calendário esteja dentro da área correta */
         }
 
         h1 {
@@ -49,7 +50,8 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            cursor: pointer; /* Alteração para garantir que pareça clicável */
+            cursor: pointer;
+            z-index: 9999; /* Garantir que o calendário apareça no topo */
         }
 
         .submit-btn {
@@ -92,7 +94,9 @@
             time_24hr: true,
             onOpen: function(selectedDates, dateStr, instance) {
                 instance.setDate(new Date());  // Garante que abre com a data atual
-            }
+            },
+            position: "below", // Garante que o calendário apareça abaixo do campo
+            zIndex: 9999
         });
 
         flatpickr("#to_date", {
@@ -103,7 +107,9 @@
             time_24hr: true,
             onOpen: function(selectedDates, dateStr, instance) {
                 instance.setDate(new Date());  // Garante que abre com a data atual
-            }
+            },
+            position: "below", // Garante que o calendário apareça abaixo do campo
+            zIndex: 9999
         });
 
         // Enviar dados ao bot do Telegram
