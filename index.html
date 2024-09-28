@@ -83,12 +83,13 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        // Inicializar os campos de data/hora com posição correta do calendário
+        // Inicializar os campos de data/hora com ajuste de posição para a esquerda
         flatpickr("#from_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
             maxDate: new Date(),  // Limitar a data máxima ao presente
             time_24hr: true,
+            position: "auto left", // Forçar o calendário a abrir à esquerda
             onOpen: function(selectedDates, dateStr, instance) {
                 instance.positionElement = document.getElementById('from_date'); // Garante que o calendário aparece logo abaixo
             }
@@ -99,6 +100,7 @@
             dateFormat: "Y-m-d H:i",
             maxDate: new Date(),
             time_24hr: true,
+            position: "auto left", // Forçar o calendário a abrir à esquerda
             onOpen: function(selectedDates, dateStr, instance) {
                 instance.positionElement = document.getElementById('to_date'); // Garante que o calendário aparece logo abaixo
             }
