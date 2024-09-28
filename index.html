@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Escolha o Intervalo de Data e Hora</title>
 
-    <!-- Biblioteca de calendário leve -->
+    <!-- Biblioteca Flatpickr para o calendário -->
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
     <style>
@@ -41,19 +41,11 @@
         .date-input {
             margin-bottom: 15px;
             width: 100%;
-        }
-
-        .flatpickr {
-            width: 100%;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
             cursor: pointer;
-        }
-
-        .flatpickr-calendar {
-            z-index: 1000; /* Garantir que o calendário fique por cima de outros elementos */
         }
 
         .submit-btn {
@@ -77,33 +69,46 @@
     <div class="container">
         <h1>Escolha o intervalo de data e hora</h1>
 
-        <input id="from_date" type="text" class="flatpickr date-input" placeholder="Data de Início" readonly>
-        <input id="to_date" type="text" class="flatpickr date-input" placeholder="Data de Término" readonly>
+        <input id="from_date" type="text" class="date-input" placeholder="Data de Início" readonly>
+        <input id="to_date" type="text" class="date-input" placeholder="Data de Término" readonly>
 
         <button class="submit-btn" onclick="sendDateToBot()">Enviar</button>
     </div>
 
-    <!-- Biblioteca de calendário -->
+    <!-- Biblioteca Flatpickr para o calendário -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        // Inicializar os campos de data/hora com estilo embutido e com ajuste de posição no campo de entrada
+        // Inicializar o campo "Data de Início" para transformar em um calendário ao clicar
         flatpickr("#from_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            maxDate: new Date(),  // Limitar a data máxima ao presente
             time_24hr: true,
-            appendTo: document.getElementById("from_date").parentNode, // Anexa o calendário no contêiner
-            position: "below",  // Garante que o calendário aparece logo abaixo do campo
+            maxDate: "today",  // Limitar a data máxima ao presente
+            onOpen: function(selectedDates, dateStr, instance) {
+                // Expandir a caixa de seleção para incorporar o calendário
+                instance.input.style.borderRadius = "5px 5px 0 0";
+            },
+            onClose: function(selectedDates, dateStr, instance) {
+                // Voltar ao estado normal após a seleção
+                instance.input.style.borderRadius = "5px";
+            }
         });
 
+        // Inicializar o campo "Data de Término" para transformar em um calendário ao clicar
         flatpickr("#to_date", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            maxDate: new Date(),
             time_24hr: true,
-            appendTo: document.getElementById("to_date").parentNode,  // Anexa o calendário no contêiner
-            position: "below",  // Garante que o calendário aparece logo abaixo do campo
+            maxDate: "today",
+            onOpen: function(selectedDates, dateStr, instance) {
+                // Expandir a caixa de seleção para incorporar o calendário
+                instance.input.style.borderRadius = "5px 5px 0 0";
+            },
+            onClose: function(selectedDates, dateStr, instance) {
+                // Voltar ao estado normal após a seleção
+                instance.input.style.borderRadius = "5px";
+            }
         });
 
         // Enviar dados ao bot do Telegram
