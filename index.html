@@ -65,29 +65,40 @@
     <!-- Flatpickr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/l10n/pt.js"></script>
-    <script>
-        // Configura o flatpickr para intervalo de data e hora
-        flatpickr("#calendar", {
-            mode: "range",
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            minDate: "today",
-            maxDate: new Date().fp_incr(30),  // Limita a 30 dias a partir de hoje
-            time_24hr: true,
-            locale: "pt", // Define o idioma para português
-        });
+<label for="from-date">Escolha a data e hora de início (From):</label>
+<input type="text" id="from-date" />
 
-        // Evento para capturar a seleção e enviar para o bot (a ser adaptado conforme a lógica de integração)
-        document.getElementById('submit').addEventListener('click', function() {
-            const selectedDates = document.getElementById('calendar').value;
-            if (selectedDates) {
-                alert(`Você selecionou: ${selectedDates}`);
-                // Aqui você pode adicionar a lógica para enviar a data selecionada ao bot via API ou outra lógica necessária
-            } else {
-                alert('Por favor, selecione um intervalo de data e hora.');
-            }
-        });
-    </script>
+<label for="to-date">Escolha a data e hora de término (To):</label>
+<input type="text" id="to-date" />
 
+<script>
+    // Inicializar o flatpickr para a data de início
+    const fromDate = flatpickr("#from-date", {
+        enableTime: true,  // Permite escolha da hora
+        dateFormat: "d/m/Y H:i",  // Formato de data
+        minDate: new Date().fp_incr(-30),  // Permite datas até 30 dias no passado
+        maxDate: "today",  // Limita a data máxima para o presente
+        time_24hr: true,  // Usa o formato 24 horas
+        locale: {
+            firstDayOfWeek: 1 // Define a segunda-feira como o primeiro dia da semana
+        },
+        onChange: function(selectedDates, dateStr, instance) {
+            // Atualiza o minDate do campo to-date ao selecionar o from-date
+            toDate.set('minDate', dateStr); 
+        }
+    });
+
+    // Inicializar o flatpickr para a data de término
+    const toDate = flatpickr("#to-date", {
+        enableTime: true,  // Permite escolha da hora
+        dateFormat: "d/m/Y H:i",  // Formato de data
+        minDate: new Date().fp_incr(-30),  // Permite datas até 30 dias no passado
+        maxDate: "today",  // Limita a data máxima para o presente
+        time_24hr: true,  // Usa o formato 24 horas
+        locale: {
+            firstDayOfWeek: 1 // Define a segunda-feira como o primeiro dia da semana
+        }
+    });
+</script>
 </body>
 </html>
